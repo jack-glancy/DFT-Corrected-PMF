@@ -1,0 +1,27 @@
+#!/bin/bash
+# set the account to be used for the job
+#SBATCH --account=free
+# set name of job
+#SBATCH --job-name=pmf_CA
+#SBATCH --output=pmf_CA.out
+#SBATCH --error=pmf_CA.err
+# set the number of nodes
+#SBATCH --nodes=1
+#SBATCH --ntasks-per-node=16
+# set max wallclock time
+#SBATCH --time=06:00:00
+# mail alert at start, end and abortion of execution
+#SBATCH --mail-type=END
+# send mail to this address
+#SBATCH --mail-user=jjg52@bath.ac.uk
+# run the application
+module load gaussian/16/A.03
+#for i in {-1..2}
+i=-1
+#do
+for j in {0..5}
+do
+echo $i, $j > num
+./sp.exe < num > log.$i.$j
+done
+#done
